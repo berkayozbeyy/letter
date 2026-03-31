@@ -1,136 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Special Message</title>
-    <style>
-        :root {
-            --bg-color: #fcfaf7;
-            --accent: #d4a373;
-            --text-color: #4a4a4a;
-        }
+  <meta charset="UTF-8">
+  <title>Letter</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f8f1e7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: cursive;
+    }
 
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            background-color: var(--bg-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden;
-            touch-action: manipulation;
-        }
+    .container {
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+    }
 
-        /* The Envelope/Letter Container */
-        #container {
-            position: relative;
-            width: 80%;
-            max-width: 350px;
-            height: 250px;
-            cursor: pointer;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .envelope {
+      width: 260px;
+      height: 180px;
+      background: #efe3d2;
+      border-radius: 12px;
+      position: relative;
+      transition: all 1s ease;
+    }
 
-        /* Initial Letter Message */
-        #letter {
-            position: absolute;
-            width: 100%; height: 100%;
-            background: white;
-            border: 1px solid #eee;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            box-sizing: border-box;
-            border-radius: 8px;
-            z-index: 2;
-            transition: all 0.8s cubic-bezier(0.7, 0, 0.3, 1);
-        }
+    .flap {
+      position: absolute;
+      width: 100%;
+      height: 90px;
+      background: #e5d3bc;
+      top: 0;
+      left: 0;
+      transform-origin: top;
+      transition: transform 1s ease;
+      border-radius: 12px 12px 0 0;
+    }
 
-        #letter h2 { color: var(--accent); font-weight: 300; margin-bottom: 10px; }
-        #letter p { color: var(--text-color); font-size: 0.9rem; line-height: 1.5; }
+    .message {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5c4b3b;
+      font-size: 18px;
+    }
 
-        /* The Hidden Reveal Section */
-        #reveal-section {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease;
-            z-index: 1;
-        }
+    .photo {
+      width: 200px;
+      height: 260px;
+      background: white;
+      border-radius: 16px;
+      padding: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      opacity: 0;
+      transition: all 1.2s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
 
-        .photo-frame {
-            position: relative;
-            width: 90%;
-            max-width: 400px;
-            transform: scale(0.9);
-            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-        }
+    .photo img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
 
-        .photo-frame img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            display: block;
-        }
+    .photo-text {
+      margin-top: 10px;
+      color: #444;
+    }
 
-        /* The Message Over the Picture */
-        .overlay-text {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            pointer-events: none;
-        }
+    .opened .flap {
+      transform: rotateX(-150deg);
+    }
 
-        /* Animation Triggered by JS */
-        .opened #letter {
-            transform: translateY(-150%) rotate(-5deg);
-            opacity: 0;
-        }
+    .opened .photo {
+      transform: translateX(-50%) translateY(-140px);
+      opacity: 1;
+    }
 
-        .opened #reveal-section {
-            opacity: 1;
-            visibility: visible;
-        }
+    .opened .envelope {
+      transform: translateY(120px);
+      opacity: 0;
+    }
 
-        .opened .photo-frame {
-            transform: scale(1);
-        }
-    </style>
+    .bottom-text {
+      margin-top: 200px;
+      color: #6a5846;
+      font-size: 22px;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div id="container" onclick="openLetter()">
-        <div id="letter">
-            <h2>For You</h2>
-            <p>I heard the big news! Click this letter to open something special.</p>
-        </div>
+<div class="container" onclick="openLetter()" id="letterBox">
 
-        <div id="reveal-section">
-            <div class="photo-frame">
-                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1000" alt="New Job">
-                
-                <div class="overlay-text">Congratulations on the new job!</div>
-            </div>
-        </div>
-    </div>
+  <div class="photo">
+    <!-- PUT YOUR IMAGE FILE NAME BELOW -->
+    <img src="your-photo.jpg" alt="memory">
+    <div class="photo-text">Forever with you ✨</div>
+  </div>
 
-    <script>
-        function openLetter() {
-            document.body.classList.add('opened');
-        }
-    </script>
+  <div class="envelope">
+    <div class="flap"></div>
+    <div class="message">Click to open my letter 💌</div>
+  </div>
+
+  <div class="bottom-text">My heart has a message for you</div>
+
+</div>
+
+<script>
+  function openLetter() {
+    document.getElementById("letterBox").classList.add("opened");
+  }
+</script>
+
 </body>
 </html>
