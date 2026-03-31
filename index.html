@@ -21,8 +21,8 @@
     }
 
     .envelope {
-      width: 260px;
-      height: 180px;
+      width: 420px;
+      height: 280px;
       background: #efe3d2;
       border-radius: 12px;
       position: relative;
@@ -32,7 +32,7 @@
     .flap {
       position: absolute;
       width: 100%;
-      height: 90px;
+      height: 140px;
       background: #e5d3bc;
       top: 0;
       left: 0;
@@ -47,12 +47,12 @@
       top: 50%;
       transform: translateY(-50%);
       color: #5c4b3b;
-      font-size: 18px;
+      font-size: 28px;
     }
 
     .photo {
-      width: 200px;
-      height: 260px;
+      width: 300px;
+      height: 380px;
       background: white;
       border-radius: 16px;
       padding: 10px;
@@ -66,7 +66,7 @@
 
     .photo img {
       width: 100%;
-      height: 150px;
+      height: 240px;
       object-fit: cover;
       border-radius: 10px;
     }
@@ -74,6 +74,7 @@
     .photo-text {
       margin-top: 10px;
       color: #444;
+      font-size: 22px;
     }
 
     .opened .flap {
@@ -81,7 +82,7 @@
     }
 
     .opened .photo {
-      transform: translateX(-50%) translateY(-140px);
+      transform: translateX(-50%) translateY(-50px);
       opacity: 1;
     }
 
@@ -91,9 +92,9 @@
     }
 
     .bottom-text {
-      margin-top: 200px;
+      margin-top: 240px;
       color: #6a5846;
-      font-size: 22px;
+      font-size: 32px;
     }
   </style>
 </head>
@@ -103,14 +104,13 @@
 <div class="container" onclick="openLetter()" id="letterBox">
 
   <div class="photo">
-    <!-- PUT YOUR IMAGE FILE NAME BELOW -->
     <img src="your-photo.jpg" alt="memory">
-    <div class="photo-text">Forever with you ✨</div>
+    <div class="photo-text">Forever with you</div>
   </div>
 
   <div class="envelope">
     <div class="flap"></div>
-    <div class="message">Click to open my letter 💌</div>
+    <div class="message">Click to open my letter</div>
   </div>
 
   <div class="bottom-text">My heart has a message for you</div>
